@@ -58,9 +58,9 @@ public class Datastore {
    */
   public List<Message> getMessages(String user) {
     Query query =
-            new Query("Message")
-                    .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
-                    .addSort("timestamp", SortDirection.DESCENDING);
+        new Query("Message")
+            .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+            .addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
 
     List<Message> messages = getMessageInformation(results);
@@ -70,7 +70,7 @@ public class Datastore {
 
   public List<Message> getAllMessages() {
     Query query = new Query("Message")
-            .addSort("timestamp", SortDirection.DESCENDING);
+        .addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
 
     List<Message> messages = getMessageInformation(results);
@@ -100,12 +100,12 @@ public class Datastore {
   }
 
   public Set<String> getUsers() {
-	  Set<String> users = new HashSet<>();
-	  Query query = new Query("Message");
-	  PreparedQuery results = datastore.prepare(query);
-	  for(Entity entity : results.asIterable()) {
-	    users.add((String) entity.getProperty("user"));
-	  }
-	  return users;
+    Set<String> users = new HashSet<>();
+	Query query = new Query("Message");
+	PreparedQuery results = datastore.prepare(query);
+	for(Entity entity : results.asIterable()) {
+	  users.add((String) entity.getProperty("user"));
 	}
+	return users;
+  }
 }
