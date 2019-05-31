@@ -3,15 +3,15 @@ function fetchUserList(){
   const url = '/user-list';
   fetch(url)
       .then((response) => { 
-          return response.json();
+        return response.json();
       }).then((users) => {
-       const list = document.getElementById('list');
-       list.innerHTML = '';
+        const list = document.getElementById('list');
+        list.innerHTML = '';
 
-       users.forEach((user) => {
-         const userListItem = buildUserListItem(user);
-         list.appendChild(userListItem);
-       });
+        users.forEach((user) => {
+          const userListItem = buildUserListItem(user);
+          list.appendChild(userListItem);
+        });
      });
 }
 
