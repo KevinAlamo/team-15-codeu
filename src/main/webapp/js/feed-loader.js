@@ -1,3 +1,19 @@
+/**
+ * Shows the message form if the user is logged in and viewing their own page.
+ */
+function showMessageFormIfViewingSelf() {
+    fetch('/login-status')
+        .then((response) => {
+        return response.json();
+    })
+    .then((loginStatus) => {
+            if (loginStatus.isLoggedIn) {
+            const messageForm = document.getElementById('message-form');
+            messageForm.classList.remove('hidden');
+        }
+    });
+}
+
 // Fetch messages and add them to the page.
 function fetchMessages(){
     const url = '/feed';
@@ -15,8 +31,8 @@ function fetchMessages(){
             messages.forEach((message) => {
                 const messageDiv = buildMessageDiv(message);
             messageContainer.appendChild(messageDiv);
-            });
         });
+    });
 }
 
 function buildMessageDiv(message){
@@ -47,5 +63,6 @@ function buildMessageDiv(message){
 
 // Fetch data and populate the UI of the page.
 function buildUI(){
+    showMessageFormIfViewingSelf();
     fetchMessages();
 }

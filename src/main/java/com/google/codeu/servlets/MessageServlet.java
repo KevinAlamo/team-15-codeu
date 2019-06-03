@@ -81,6 +81,11 @@ public class MessageServlet extends HttpServlet {
     Message message = new Message(user, text);
     datastore.storeMessage(message);
 
-    response.sendRedirect("/user-page.html?user=" + user);
+    if (request.getHeader("referer")..equalsIgnoreCase("/feed.html")) {
+      response.sendRedirect("/feed.html");
+    }
+    else {
+      response.sendRedirect("/user-page.html?user=" + user);
+    }
   }
 }
