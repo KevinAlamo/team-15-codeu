@@ -22,21 +22,6 @@ limitations under the License.
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBJOyT3favGT_aVaqnzL7NkYAu9uYLUp0"></script>
-	<script>
-    function createMap(){
-      const map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 48.463, lng: -122.605},
-        zoom: 15
-      });
-    }
-  </script>
-  <style>
-    #map {
-      width: 500px;
-      height: 500px;
-      border: thin solid black;
-    }
-  </style>
     <script src="/js/user-page-loader.js"></script>
   </head>
   <body onload="buildUI(); createMap();">

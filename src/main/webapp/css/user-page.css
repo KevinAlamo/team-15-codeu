@@ -45,3 +45,10 @@
 .hidden {
   display: none;
 }
+
+/*Sets the size and border of the map */
+ #map {
+      width: 500px;
+      height: 500px;
+      border: thin solid black;
+}
