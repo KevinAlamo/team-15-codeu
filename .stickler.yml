@@ -1,5 +1,16 @@
 linters:
-  csslint: {  }
+  csslint: 
+    fixer: true
+    ignore: 'box-model,ids'
+  checkstyle:
+    config: ./checkstyle.xml
+  eslint:
+    config: './eslint.config'
+    fixer: true
+  
+fixers: 
+  enable: true
+  
 files:
   ignore:
     - 'bower_components/*'
