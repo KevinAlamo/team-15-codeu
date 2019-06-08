@@ -21,6 +21,13 @@
   width: 100%;
 }
 
+/* Sets a size limit to images*/
+.message-body img {
+  display: block;
+  margin-top: 25px;
+  max-width: 75%;
+}
+
 /* Give each message a rounded border. */
 .message-div {
   border: thin solid black;
