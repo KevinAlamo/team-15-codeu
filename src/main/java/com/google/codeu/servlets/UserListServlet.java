@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Handles fetching all users for the community page.
- */
+/** Handles fetching all users for the community page. */
 @WebServlet("/user-list")
 public class UserListServlet extends HttpServlet {
 
@@ -23,8 +21,7 @@ public class UserListServlet extends HttpServlet {
   }
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
     Set<String> users = datastore.getUsers();
     Gson gson = new Gson();
