@@ -3,7 +3,7 @@ linters:
     fixer: true
     ignore: 'box-model,ids'
   checkstyle:
-    config: ./checkstyle.xml
+    config: './checkstyle.xml'
   eslint:
     config: './eslint.config'
     fixer: true
