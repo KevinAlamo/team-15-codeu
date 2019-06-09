@@ -96,3 +96,11 @@ function buildUI() {
   showMessageFormIfViewingSelf();
   fetchMessages();
 }
+
+/**fetches map data */
+function createMap(){
+	const map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 48.463, lng: -122.605},
+        zoom: 15
+	});
+}
