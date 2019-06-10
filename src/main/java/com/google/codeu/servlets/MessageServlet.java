@@ -38,48 +38,48 @@ import org.jsoup.safety.Whitelist;
 @WebServlet("/messages")
 public class MessageServlet extends HttpServlet {
 
-    private Datastore datastore;
+  private Datastore datastore;
 
-    @Override
-    public void init() {
-        datastore = new Datastore();
+  @Override
+  public void init() {
+    datastore = new Datastore();
+  }
+
+  /**
+   * Responds with a JSON representation of {@link Message} data for a specific user. Responds with
+   * an empty array if the user is not provided.
+   */
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    response.setContentType("application/json");
+
+    String user = request.getParameter("user");
+
+    if (user == null || user.equals("")) {
+      // Request is invalid, return empty array
+      response.getWriter().println("[]");
+      return;
     }
 
-    /**
-     * Responds with a JSON representation of {@link Message} data for a specific user. Responds with
-     * an empty array if the user is not provided.
-     */
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    List<Message> messages = datastore.getMessages(user);
+    Gson gson = new Gson();
+    String json = gson.toJson(messages);
 
-        response.setContentType("application/json");
+    response.getWriter().println(json);
+  }
 
-        String user = request.getParameter("user");
+  /**
+   * Stores a new {@link Message}.
+   */
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        if (user == null || user.equals("")) {
-            // Request is invalid, return empty array
-            response.getWriter().println("[]");
-            return;
-        }
-
-        List<Message> messages = datastore.getMessages(user);
-        Gson gson = new Gson();
-        String json = gson.toJson(messages);
-
-        response.getWriter().println(json);
+    UserService userService = UserServiceFactory.getUserService();
+    if (!userService.isUserLoggedIn()) {
+      response.sendRedirect("/index.html");
+      return;
     }
-
-    /**
-     * Stores a new {@link Message}.
-     */
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        UserService userService = UserServiceFactory.getUserService();
-        if (!userService.isUserLoggedIn()) {
-            response.sendRedirect("/index.html");
-            return;
-        }
 
     String user = userService.getCurrentUser().getEmail();
     String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
@@ -87,10 +87,10 @@ public class MessageServlet extends HttpServlet {
     String regex = "(https?://\\S+\\.(png|jpg|gif))";
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-    
+
     Message message = new Message(user, textWithImagesReplaced);
     datastore.storeMessage(message);
 
-        response.sendRedirect("/user-page.html?user=" + user);
-    }
+    response.sendRedirect("/user-page.html?user=" + user);
+  }
 }
