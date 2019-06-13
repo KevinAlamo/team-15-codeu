@@ -103,4 +103,15 @@ function createMap(){
         center: {lat: 48.463, lng: -122.605},
         zoom: 15
 	});
+	
+	const hikingMarker = new google.maps.Marker({
+		position: {lat: 48.463, lng: -122.605},
+		map: map,
+		title: 'The Best Hiking Spot'
+	});
+	
+	var mapInfoWindow = new google.maps.InfoWindow({
+		content: 'This is the starting point of the Whistle Lake Trail.'
+	});
+	mapInfoWindow.open(map, hikingMarker);
 }
