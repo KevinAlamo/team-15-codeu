@@ -16,8 +16,8 @@
 
 /*Sets the size and border of the map */
 #map{
-  width: 500px;
   height: 500px;
+  width: 500px;
 }
 
 /* Set the size of the message input to be 100 pixels high
