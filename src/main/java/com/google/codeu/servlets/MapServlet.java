@@ -25,7 +25,7 @@ public class MapServlet extends HttpServlet {
     ufoSightingArray = new JsonArray();
     Gson gson = new Gson();
     Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/ufo-data.csv"));
-    while (scanner.hasNextLine()){
+    while (scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
 
@@ -44,7 +44,7 @@ public class MapServlet extends HttpServlet {
   }
 
   // This class could be its own file if we needed it outside this servlet
-  private static class UfoSighting{
+  private static class UfoSighting {
     double lat;
     double lng;
 
