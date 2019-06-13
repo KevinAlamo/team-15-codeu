@@ -15,10 +15,9 @@
  */
 
 /*Sets the size and border of the map */
-#map {
-  border: thin solid black;
+#map{
+  width: 500px;
   height: 500px;
-  width: 500px;  
 }
 
 /* Set the size of the message input to be 100 pixels high
@@ -27,6 +26,7 @@
   height: 100px;
   width: 100%;
 }
+
 
 /* Sets a size limit to images*/
 .message-body img {
