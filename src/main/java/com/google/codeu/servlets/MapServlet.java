@@ -13,18 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Returns UFO data as a JSON array, e.g. [{"lat": 38.4404675, "lng": -122.7144313}]
+ * Returns map data as a JSON array, e.g. [{"lat": 38.4404675, "lng": -122.7144313}]
  */
-@WebServlet("/ufo-data")
+@WebServlet("/boba_spots")
 public class MapServlet extends HttpServlet {
 
-  private JsonArray ufoSightingArray;
+  private JsonArray bobaArray;
 
   @Override
   public void init() {
-    ufoSightingArray = new JsonArray();
+    bobaArray = new JsonArray();
     Gson gson = new Gson();
-    Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/ufo-data.csv"));
+    Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/boba_spots.csv"));
     while (scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
@@ -32,7 +32,7 @@ public class MapServlet extends HttpServlet {
       double lat = Double.parseDouble(cells[0]);
       double lng = Double.parseDouble(cells[1]);
 
-      ufoSightingArray.add(gson.toJsonTree(new UfoSighting(lat, lng)));
+      bobaArray.add(gson.toJsonTree(new BobaSpot(lat, lng)));
     }
     scanner.close();
   }
@@ -40,15 +40,15 @@ public class MapServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
-    response.getOutputStream().println(ufoSightingArray.toString());
+    response.getOutputStream().println(bobaArray.toString());
   }
 
   // This class could be its own file if we needed it outside this servlet
-  private static class UfoSighting {
+  private static class BobaSpot {
     double lat;
     double lng;
 
-    private UfoSighting(double lat, double lng) {
+    private BobaSpot(double lat, double lng) {
       this.lat = lat;
       this.lng = lng;
     }

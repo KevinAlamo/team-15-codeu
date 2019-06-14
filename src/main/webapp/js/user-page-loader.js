@@ -97,20 +97,22 @@ function buildUI() {
   fetchMessages();
 }
 
-/**Fetches UFO data and creates map */
-function createUfoSightingsMap(){
-      fetch('/ufo-data').then(function(response) {
+/**Fetches boba data and creates map */
+function createBobaMap(){
+	
+	
+      fetch('/boba_spots').then(function(response) {
         return response.json();
-      }).then((ufoSightings) => {
+      }).then((boba) => {
 
         const map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 35.78613674, lng: -119.4491591},
+          center: {lat: 37.756903, lng: -122.442739},
           zoom:7
         });
 
-        ufoSightings.forEach((ufoSighting) => {
+        boba.forEach((boba) => {
           new google.maps.Marker({
-            position: {lat: ufoSighting.lat, lng: ufoSighting.lng},
+            position: {lat: boba.lat, lng: boba.lng},
             map: map
           });
         });
