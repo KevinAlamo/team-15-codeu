@@ -24,7 +24,8 @@ public class MapServlet extends HttpServlet {
   public void init() {
     bobaArray = new JsonArray();
     Gson gson = new Gson();
-    Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/boba_spots.csv"));
+    Scanner scanner = new 
+      Scanner(getServletContext().getResourceAsStream("/WEB-INF/boba_spots.csv"));
     while (scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
