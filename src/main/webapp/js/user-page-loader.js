@@ -99,8 +99,6 @@ function buildUI() {
 
 /**Fetches boba data and creates map */
 function createBobaMap(){
-	
-	
       fetch('/boba_spots').then(function(response) {
         return response.json();
       }).then((boba) => {
@@ -118,3 +116,4 @@ function createBobaMap(){
         });
       });
     }
+

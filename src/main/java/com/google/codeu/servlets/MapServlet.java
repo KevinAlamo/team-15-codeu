@@ -24,6 +24,7 @@ public class MapServlet extends HttpServlet {
   public void init() {
     bobaArray = new JsonArray();
     Gson gson = new Gson();
+
     Scanner scanner = new 
         Scanner(getServletContext().getResourceAsStream("/WEB-INF/boba_spots.csv"));
     while (scanner.hasNextLine()) {
@@ -46,6 +47,7 @@ public class MapServlet extends HttpServlet {
 
   // This class could be its own file if we needed it outside this servlet
   private static class BobaSpot {
+
     double lat;
     double lng;
 
