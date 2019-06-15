@@ -97,21 +97,23 @@ function buildUI() {
   fetchMessages();
 }
 
-/**fetches map data */
-function createMap(){
-	const map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 48.463, lng: -122.605},
-        zoom: 15
-	});
-	
-	const hikingMarker = new google.maps.Marker({
-		position: {lat: 48.463, lng: -122.605},
-		map: map,
-		title: 'The Best Hiking Spot'
-	});
-	
-	var mapInfoWindow = new google.maps.InfoWindow({
-		content: 'This is the starting point of the Whistle Lake Trail.'
-	});
-	mapInfoWindow.open(map, hikingMarker);
-}
+/**Fetches boba data and creates map */
+function createBobaMap(){
+      fetch('/boba_spots').then(function(response) {
+        return response.json();
+      }).then((boba) => {
+
+        const map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 37.756903, lng: -122.442739},
+          zoom:7
+        });
+
+        boba.forEach((boba) => {
+          new google.maps.Marker({
+            position: {lat: boba.lat, lng: boba.lng},
+            map: map
+          });
+        });
+      });
+    }
+
