@@ -1,7 +1,6 @@
 package com.google.codeu.servlets;
 
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,12 +17,12 @@ public class ChartServlet extends HttpServlet {
 
   // This class could be its own file if we needed it outside this servlet
   private static class bookRating {
-    String title;
-    double rating;
+    int freedom;
+    int happy;
 
-    private bookRating(String title, double rating) {
-      this.title = title;
-      this.rating = rating;
+    private bookRating(int freedom, int happy) {
+      this.freedom = freedom;
+      this.happy = happy;
     }
   }
 
@@ -32,16 +31,19 @@ public class ChartServlet extends HttpServlet {
     bookRatingArray = new JsonArray();
     Gson gson = new Gson();
     Scanner scanner =
-        new Scanner(getServletContext().getResourceAsStream("/WEB-INF/book-ratings.csv"));
+        new Scanner(getServletContext().getResourceAsStream("/WEB-INF/world-happiness-report-2019.csv"));
     scanner.nextLine(); // skips first line (the csv header)
     while (scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
 
-      String curTitle = cells[5];
-      double curRating = Double.parseDouble(cells[6]);
+      int freedom=0;
+      if (!cells[5].equals("")) {
+        freedom = Integer.parseInt(cells[5]);
+      }
+      int happy = Integer.parseInt(cells[1]);
 
-      bookRatingArray.add(gson.toJsonTree(new bookRating(curTitle, curRating)));
+      bookRatingArray.add(gson.toJsonTree(new bookRating(freedom, happy)));
     }
     scanner.close();
   }
