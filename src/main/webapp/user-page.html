@@ -21,18 +21,18 @@ limitations under the License.
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
-	  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBJOyT3favGT_aVaqnzL7NkYAu9uYLUp0"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBJOyT3favGT_aVaqnzL7NkYAu9uYLUp0"></script>
     <script src="/js/user-page-loader.js"></script>
     <script src="/js/navigation-loader.js"></script>
   </head>
-  <body onload="buildUI(); addLoginOrLogoutLinkToNavigation(); createMap();">
+  <body onload="buildUI(); addLoginOrLogoutLinkToNavigation(); createBobaMap();">
     <nav>
       <ul id="navigation">
-        <li><a href="/">Home</a></li>
-	<li><a href="/aboutus.html">About Our Team</a></li>
-        <li><a href="/community.html">Site Community</a></li>
-        <li><a href="/feed.html">Message Feed</a></li>
-	<li><a href="/stats.html">Site Stats</a></li>
+		<li><a href="/">Home</a></li>
+		<li><a href="/aboutus.html">About Our Team</a></li>
+		<li><a href="/community.html">Site Community</a></li>
+		<li><a href="/feed.html">Message Feed</a></li>
+		<li><a href="/stats.html">Site Stats</a></li>
       </ul>
     </nav>
     <h1 id="page-title">User Page</h1>
@@ -48,9 +48,8 @@ limitations under the License.
 
     <div id="message-container">Loading...</div>
 
-	<h2>My Favorite Place</h2>
-  	<div id="map"></div>
-  	<p>This is my favorite place to hike!</p>
+	<h2>Boba in the Bay Area</h2>
+	 <div id="map"></div>
 
   </body>
 </html>
