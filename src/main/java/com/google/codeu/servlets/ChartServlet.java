@@ -30,10 +30,10 @@ public class ChartServlet extends HttpServlet {
   public void init() {
     bookRatingArray = new JsonArray();
     Gson gson = new Gson();
-    Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/happiness.csv"));
-    scanner.nextLine(); // skips first line (the csv header)
-    while (scanner.hasNextLine()) {
-      String line = scanner.nextLine();
+    Scanner s = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/happiness.csv"));
+    s.nextLine(); // skips first line (the csv header)
+    while (s.hasNextLine()) {
+      String line = s.nextLine();
       String[] cells = line.split(",");
 
       int freedom = 0;
@@ -44,7 +44,7 @@ public class ChartServlet extends HttpServlet {
 
       bookRatingArray.add(gson.toJsonTree(new BookRating(freedom, happy)));
     }
-    scanner.close();
+    s.close();
   }
 
   @Override
