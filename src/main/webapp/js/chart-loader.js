@@ -3,7 +3,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart(){
   fetch("/new-residents-charts")
-    .then((response) => {
+    .then(function(response) {
       return response.json();
     }).then((bookJson) => {
       var data = new google.visualization.DataTable();
