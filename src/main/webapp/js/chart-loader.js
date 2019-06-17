@@ -5,7 +5,7 @@ function drawChart(){
   fetch("/new-residents-charts")
     .then(function(response) {
       return response.json();
-    }).then((bookJson) => {
+    }).then(function(bookJson) {
       var data = new google.visualization.DataTable();
       //define columns for the DataTable instance
       data.addColumn('number', 'Freedom');
