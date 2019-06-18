@@ -139,7 +139,7 @@ public class MessageServlet extends HttpServlet {
             || fileType.equals("image/gif") || fileType.equals("image/jpeg"))) {
         //not yet supported so deleted
         blobstoreService.delete(blobKey);
-      }else {
+      } else {
         ServingUrlOptions urlOptions = ServingUrlOptions.Builder.withBlobKey(blobKey);
         String imageUrl = imagesService.getServingUrl(urlOptions);
         imageBlobUrls.add(imageUrl);
