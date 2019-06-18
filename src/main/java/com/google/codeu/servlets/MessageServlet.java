@@ -124,9 +124,9 @@ public class MessageServlet extends HttpServlet {
 
     for (BlobKey blobKey: blobKeys) {
       BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
-    	if (blobInfo.getSize() == 0) {
+      if (blobInfo.getSize() == 0) {
         blobstoreService.delete(blobKey);
-    	}
+      }
     }
     
     ImagesService imagesService = ImagesServiceFactory.getImagesService();
