@@ -3,7 +3,7 @@
           .then((response) => {
             return response.text();
           })
-          .then((imageUploadUrl) => {
+          .then(function(imageUploadUrl) {
             const messageForm = document.getElementById('my-form');
             messageForm.action = imageUploadUrl;
             messageForm.classList.remove('hidden');
