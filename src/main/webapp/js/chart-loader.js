@@ -1,23 +1,33 @@
-google.charts.load('current', {packages: ['corechart']});
+google.charts.load("current", {packages:["corechart"]});
 google.charts.setOnLoadCallback(drawChart);
-function drawChart(){
-  var book_data = new google.visualization.DataTable();
-  //define columns for the DataTable instance
-  book_data.addColumn('string', 'Book Title');
-  book_data.addColumn('number', 'Votes');
 
-  //add data to book_data
-  book_data.addRows([
-    ["The Best We Could Do", 6],
-    ["Sing, Unburied, Sing", 10],
-    ["The Book of Unknown Americans", 7],
-    ["The 57 Bus", 4],
-    ["The Handmaid's Tale", 8]
-  ]);
-  var chart = new google.visualization.BarChart(document.getElementById('book_chart'));
-  var chart_options = {
-    width: 800,
-    height: 400
-  };
-  chart.draw(book_data, chart_options);
+function drawChart(){
+  fetch("/new-residents-charts")
+    .then(function(response) {
+      return response.json();
+    }).then(function(bookJson) {
+      var data = new google.visualization.DataTable();
+      //define columns for the DataTable instance
+      data.addColumn('number', 'Freedom');
+      data.addColumn('number', 'Happiness');
+
+      for (i = 0; i < bookJson.length; i++) {
+        row = [];
+        var freedom = bookJson[i].freedom;
+        var happy = bookJson[i].happy;
+        row.push(freedom, happy);
+
+        data.addRow(row);
+      }
+
+      var options = {
+        title: 'Happpiness vs Freedom',
+        hAxis: {title: 'Freedom', minValue: 0, maxValue: 200},
+        vAxis: {title: 'Happiness', minValue: 0, maxValue: 200},
+        trendlines: { 0: {} }
+      };
+
+      var chart = new google.visualization.ScatterChart(document.getElementById('chart_div2'));
+      chart.draw(data, options);
+    })
 }
