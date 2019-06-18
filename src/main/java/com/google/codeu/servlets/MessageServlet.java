@@ -100,7 +100,7 @@ public class MessageServlet extends HttpServlet {
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
     List<String> imageBlobUrls = getUploadUrl(request, "image");
     //add image tag on uploads
-    if (imageBlobUrls != null ) {
+    if (imageBlobUrls != null) {
       for (String url:imageBlobUrls) {
         textWithImagesReplaced += "<img src=\"" + url + "\" />";   
       }
@@ -123,7 +123,7 @@ public class MessageServlet extends HttpServlet {
     }
 
     for (BlobKey blobKey: blobKeys) {
-    	BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
+      BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     	if (blobInfo.getSize() == 0) {
         blobstoreService.delete(blobKey);
     	}
