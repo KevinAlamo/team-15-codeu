@@ -99,7 +99,7 @@ public class MessageServlet extends HttpServlet {
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
     List<String> imageBlobUrls = getUploadUrl(request, "image");
-    //add image tag for uploaded image url at the end of message text
+    //add image tag on uploads
     if(imageBlobUrls!=null ) {
       for(String url:imageBlobUrls)
       {
