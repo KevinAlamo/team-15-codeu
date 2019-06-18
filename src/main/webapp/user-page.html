@@ -24,8 +24,9 @@ limitations under the License.
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBJOyT3favGT_aVaqnzL7NkYAu9uYLUp0"></script>
     <script src="/js/user-page-loader.js"></script>
     <script src="/js/navigation-loader.js"></script>
+    <script src="/js/fileuploadform.js"></script>
   </head>
-  <body onload="buildUI(); addLoginOrLogoutLinkToNavigation(); createBobaMap();">
+  <body onload="buildUI(); addLoginOrLogoutLinkToNavigation(); createBobaMap();fetchBlobstoreUrlAndShowForm();">
     <nav>
       <ul id="navigation">
 		<li><a href="/">Home</a></li>
@@ -37,11 +38,13 @@ limitations under the License.
     </nav>
     <h1 id="page-title">User Page</h1>
 
-    <form id="message-form" action="/messages" method="POST" class="hidden">
+    <form id="message-form" method="POST" class="hidden" enctype="multipart/form-data">
       Enter a new message:
       <br/>
       <textarea name="text" id="message-input"></textarea>
       <br/>
+      <input type="file" name="image" multiple>
+      <br/><br/>
       <input type="submit" value="Submit">
     </form>
     <hr/>
