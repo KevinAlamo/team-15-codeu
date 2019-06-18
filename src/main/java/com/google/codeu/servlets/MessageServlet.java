@@ -132,8 +132,9 @@ public class MessageServlet extends HttpServlet {
     ImagesService imagesService = ImagesServiceFactory.getImagesService();
     List<String> imageBlobUrls = new ArrayList<String>();
     
-    for (BlobKey blobKey: blobKeys) {
-    	String fileType = new BlobInfoFactory().loadBlobInfo(blobKey).getContentType().toString().toLowerCase();
+     for (BlobKey blobKey: blobKeys) {
+    	String fileType = new BlobInfoFactory().loadBlobInfo(blobKey).getContentType().toString();
+      fileType = fileType.toLowerCase();
     	if (!(fileType.equals("image/png") ||fileType.equals("image/jpg") || fileType.equals("image/gif") || fileType.equals("image/jpeg"))) {
     		//not yet supported so deleted
     		blobstoreService.delete(blobKey);
