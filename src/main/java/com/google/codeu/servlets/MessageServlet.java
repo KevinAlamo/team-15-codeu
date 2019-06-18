@@ -118,7 +118,7 @@ public class MessageServlet extends HttpServlet {
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get(formInputElementName);
 
-    // User submitted form without selecting a file, so we can't get a URL. (devserver)
+   
     if(blobKeys == null || blobKeys.isEmpty()) {
       return null;
     }
