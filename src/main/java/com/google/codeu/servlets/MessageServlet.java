@@ -135,12 +135,11 @@ public class MessageServlet extends HttpServlet {
     for (BlobKey blobKey: blobKeys) {
       String fileType = new BlobInfoFactory().loadBlobInfo(blobKey).getContentType().toString();
       fileType = fileType.toLowerCase();
-      if (!(fileType.equals("image/png") || fileType.equals("image/jpg") ||
-           fileType.equals("image/gif") || fileType.equals("image/jpeg"))) {
+      if (!(fileType.equals("image/png") || fileType.equals("image/jpg") 
+            || fileType.equals("image/gif") || fileType.equals("image/jpeg"))) {
         //not yet supported so deleted
         blobstoreService.delete(blobKey);
-      }
-      else {
+      }else {
         ServingUrlOptions urlOptions = ServingUrlOptions.Builder.withBlobKey(blobKey);
         String imageUrl = imagesService.getServingUrl(urlOptions);
         imageBlobUrls.add(imageUrl);
