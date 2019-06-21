@@ -15,10 +15,10 @@
  */
 
 /**
- * Adds a login or logout link to the page, depending on whether the user is
+ * Adds navigational links to the page, depending on whether the user is
  * already logged in.
  */
-function addLoginOrLogoutLinkToNavigation() {
+function loadNavigation() {
   const navigationElement = document.getElementById('navigation');
   if (!navigationElement) {
     console.warn('Navigation element not found!');
@@ -31,11 +31,30 @@ function addLoginOrLogoutLinkToNavigation() {
       })
       .then((loginStatus) => {
         if (loginStatus.isLoggedIn) {
+          navigationElement.appendChild(
+            createListItem(createLink('/index.html', 'Home')));
+
           navigationElement.appendChild(createListItem(createLink(
               '/user-page.html?user=' + loginStatus.username, 'Your Page')));
 
+		  navigationElement.appendChild(
+            createListItem(createLink('/aboutus.html', 'About Our Team')));
+
+		  navigationElement.appendChild(
+            createListItem(createLink('/chart.html', 'Chart')));
+
+		  navigationElement.appendChild(
+            createListItem(createLink('/community.html', 'Site Community')));
+
+		  navigationElement.appendChild(
+            createListItem(createLink('/feed.html', 'Message Feed')));
+
+		  navigationElement.appendChild(
+            createListItem(createLink('/stats.html', 'Site Stats')));
+
           navigationElement.appendChild(
               createListItem(createLink('/logout', 'Logout')));
+
         } else {
           navigationElement.appendChild(
               createListItem(createLink('/login', 'Login')));
