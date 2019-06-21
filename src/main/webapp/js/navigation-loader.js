@@ -18,7 +18,7 @@
  * Adds navigational links to the page, depending on whether the user is
  * already logged in.
  */
-function loadNavigation() {
+function loadNavigation() {              // eslint-disable-line no-unused-vars
   const navigationElement = document.getElementById('navigation');
   if (!navigationElement) {
     console.warn('Navigation element not found!');
@@ -37,19 +37,19 @@ function loadNavigation() {
           navigationElement.appendChild(createListItem(createLink(
               '/user-page.html?user=' + loginStatus.username, 'Your Page')));
 
-		  navigationElement.appendChild(
+          navigationElement.appendChild(
             createListItem(createLink('/aboutus.html', 'About Our Team')));
 
-		  navigationElement.appendChild(
+          navigationElement.appendChild(
             createListItem(createLink('/chart.html', 'Chart')));
 
-		  navigationElement.appendChild(
+          navigationElement.appendChild(
             createListItem(createLink('/community.html', 'Site Community')));
 
-		  navigationElement.appendChild(
+          navigationElement.appendChild(
             createListItem(createLink('/feed.html', 'Message Feed')));
 
-		  navigationElement.appendChild(
+          navigationElement.appendChild(
             createListItem(createLink('/stats.html', 'Site Stats')));
 
           navigationElement.appendChild(
