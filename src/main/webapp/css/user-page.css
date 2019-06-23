@@ -62,9 +62,9 @@
 
 /*This adds the styling to user-page*/
 body {
-  margin: 0;
   background: linear-gradient(white, #ccccff) fixed;
   font-family: sans-serif;
+  margin: 0;
 }
 
 nav {
@@ -84,8 +84,8 @@ h2 {
 
 input[type=submit] {
   background-color: #ccccff;
-  height: 50px;
   font-size: 14pt;
+  height: 50px;
   width: 100px;
  
 }
@@ -103,8 +103,8 @@ input[type=submit] {
 }
 
 .message-header {
-  border-bottom: thin solid black;
   background-image: linear-gradient(to right, white , #ccccff);
+  border-bottom: thin solid black;
 }
 
 .message-body {
