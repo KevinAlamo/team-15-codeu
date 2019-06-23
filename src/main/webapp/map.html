@@ -6,20 +6,17 @@
   <link rel="stylesheet" href="/css/map.css">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBJOyT3favGT_aVaqnzL7NkYAu9uYLUp0"></script>
   <script src="/js/map-loader.js"></script>
+  <script src="/js/navigation-loader.js"></script>
 </head>
 
-<body onload="createMap(); buildUI(); addLoginOrLogoutLinkToNavigation(); ">
+<body onload="createMap(); loadNavigation(); ">
 	<nav>
       <ul id="navigation">
-		<li><a href="/">Home</a></li>
-		<li><a href="/aboutus.html">About Our Team</a></li>
-		<li><a href="/community.html">Site Community</a></li>
-		<li><a href="/feed.html">Message Feed</a></li>
-		<li><a href="/stats.html">Site Stats</a></li>
       </ul>
     </nav>
   <h1>User Map</h1>
   <div id="map"></div>
   <p>Click in the map to create a new marker.</p>
+  <p>Right click on a marker to delete. </p>
 </body>
 </html>

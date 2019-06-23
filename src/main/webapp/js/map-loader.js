@@ -26,7 +26,7 @@ function fetchMarkers(){
   });
 }
 
-/** Creates a marker that shows a read-only info window when clicked. */
+/** Creates a marker that shows a read-only info window when clicked & deletes when right-clicked */
 function createMarkerForDisplay(lat, lng, content){
   const marker = new google.maps.Marker({
     position: {lat: lat, lng: lng},
@@ -37,6 +37,11 @@ function createMarkerForDisplay(lat, lng, content){
   });
   marker.addListener('click', () => {
     infoWindow.open(map, marker);
+  });
+
+  // When the user right clicks the info window, remove the marker.
+  marker.addListener('rightclick', () => {
+    marker.setMap(null);
   });
 }
 
@@ -88,3 +93,18 @@ function buildInfoWindowInput(lat, lng){
   containerDiv.appendChild(button);
   return containerDiv;
 }
+/**
+function buildInfoWindowDelete(lat, lng){
+  const button = document.createElement('button');
+  button.appendChild(document.createTextNode('Delete'));
+  button.onclick = () => {
+    postMarker(lat, lng, textBox.value);
+    createMarkerForDisplay(lat, lng, textBox.value);
+    editMarker.setMap(null);
+  };
+  const containerDiv = document.createElement('div');
+  containerDiv.appendChild(document.createElement('br'));
+  containerDiv.appendChild(button);
+  return containerDiv;
+}
+ */
