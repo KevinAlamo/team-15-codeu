@@ -89,7 +89,8 @@ public class MarkerServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
 
     for (Entity entity : results.asIterable()) {
-      if (((double)entity.getProperty("lat") == lat) && ((double)entity.getProperty("lng") == lng)) {
+      if (((double)entity.getProperty("lat") == lat) && 
+    		  ((double)entity.getProperty("lng") == lng)) {
         Key key = entity.getKey();
         datastore.delete(key);
       }
