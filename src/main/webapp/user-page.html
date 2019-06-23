@@ -27,12 +27,16 @@ limitations under the License.
     <script src="/js/fileuploadform.js"></script>
   </head>
   <body onload="buildUI(); loadNavigation(); createBobaMap();fetchBlobstoreUrlAndShowForm();">
+  <div id="content">
     <nav>
       <ul id="navigation">
       </ul>
     </nav>
+    <div class="padded rounded panel centered">
     <h1 id="page-title">User Page</h1>
-
+    </div>
+    
+    <div class="padded rounded panel">
     <form id="message-form" method="POST" class="hidden" enctype="multipart/form-data">
       Enter a new message:
       <br/>
@@ -42,6 +46,7 @@ limitations under the License.
       <br/><br/>
       <input type="submit" value="Submit">
     </form>
+    </div>
     <hr/>
 
     <div id="message-container">Loading...</div>
