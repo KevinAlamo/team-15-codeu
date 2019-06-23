@@ -79,24 +79,21 @@ public class MarkerServlet extends HttpServlet {
     datastore.put(markerEntity);
   }
   
-  /**Responds to a delete request */
-  @Override
+  /**Responds to a DELETE request */
   public void doDelete(HttpServletRequest request, HttpServletResponse response) {
     double lat = Double.parseDouble(request.getParameter("lat"));
     double lng = Double.parseDouble(request.getParameter("lng"));
-    String content = Jsoup.clean(request.getParameter("content"), Whitelist.none());
     
-    Marker markerToDelete = new Marker(lat, lng, content);
-    List<Marker> markersList = new ArrayList<>();
-    markersList = getMarkers();
-    
-    for (Marker marker : markersList) {
-        if ((marker.getLat() == lat) && (marker.getLng() == lng) && (marker.getContent() == content))
-        {
-        	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-            datastore.delete(marker.);
-        }
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query = new Query("Marker");
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+      if (((double)entity.getProperty("lat")==lat) && ((double)entity.getProperty("lng")==lng)){
+    	  //Key key = new Key();
+    	  Key key = entity.getKey();
+    	  datastore.delete(key);
       }
-  }
+    }}
   
 }

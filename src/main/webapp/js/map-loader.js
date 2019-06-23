@@ -40,8 +40,9 @@ function createMarkerForDisplay(lat, lng, content){
   });
 
   // When the user right clicks the info window, remove the marker.
-  marker.addListener('rightclick', function() {
-	infoWindow.
+  marker.addListener('rightclick', () => {
+	removeMarker(lat, lng);
+	marker.setMap(null);
 });
 }
 
@@ -82,18 +83,10 @@ function removeMarker(lat, lng){
 	const url = new URL(baseURL+'/markers');
 	url.searchParams.append('lat',lat);
 	url.searchParams.append('lng',lng);
-	url.searchParams.append('content',content);
 	
 	//removes marker from the datastore
 	fetch(url, {
 		method:'DELETE'
-	})
-	.then(reponse => reponse.json())
-	.then( marker => {
-		//finds marker after being deleted from datastore,
-		//removes it from map, then from dictionary
-		displayMarkers[lat][lng].setMap(null);
-		delete displayMarkers[lat][lng];
 	})
 	.catch(error => console.log(error));
 }
