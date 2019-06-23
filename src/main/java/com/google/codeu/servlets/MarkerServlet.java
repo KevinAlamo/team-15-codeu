@@ -79,7 +79,7 @@ public class MarkerServlet extends HttpServlet {
     datastore.put(markerEntity);
   }
   
-  /**Responds to a DELETE request */
+  /**Responds to a DELETE request. */
   public void doDelete(HttpServletRequest request, HttpServletResponse response) {
     double lat = Double.parseDouble(request.getParameter("lat"));
     double lng = Double.parseDouble(request.getParameter("lng"));
@@ -89,11 +89,11 @@ public class MarkerServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
 
     for (Entity entity : results.asIterable()) {
-      if (((double)entity.getProperty("lat")==lat) && ((double)entity.getProperty("lng")==lng)){
-    	  //Key key = new Key();
-    	  Key key = entity.getKey();
-    	  datastore.delete(key);
+      if (((double)entity.getProperty("lat") == lat) && ((double)entity.getProperty("lng") == lng)) {
+        Key key = entity.getKey();
+        datastore.delete(key);
       }
-    }}
+    }
+  }
   
 }

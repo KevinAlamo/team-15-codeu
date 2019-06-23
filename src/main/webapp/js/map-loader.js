@@ -88,7 +88,6 @@ function removeMarker(lat, lng){
 	fetch(url, {
 		method:'DELETE'
 	})
-	.catch(error => console.log(error));
 }
 
 /** Builds and returns HTML elements that show an editable textbox and a submit button. */
