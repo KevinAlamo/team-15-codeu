@@ -3,6 +3,7 @@ package com.google.codeu.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.codeu.data.Marker;
@@ -77,4 +78,25 @@ public class MarkerServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(markerEntity);
   }
+  
+  /**Responds to a delete request */
+  @Override
+  public void doDelete(HttpServletRequest request, HttpServletResponse response) {
+    double lat = Double.parseDouble(request.getParameter("lat"));
+    double lng = Double.parseDouble(request.getParameter("lng"));
+    String content = Jsoup.clean(request.getParameter("content"), Whitelist.none());
+    
+    Marker markerToDelete = new Marker(lat, lng, content);
+    List<Marker> markersList = new ArrayList<>();
+    markersList = getMarkers();
+    
+    for (Marker marker : markersList) {
+        if ((marker.getLat() == lat) && (marker.getLng() == lng) && (marker.getContent() == content))
+        {
+        	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+            datastore.delete(marker.);
+        }
+      }
+  }
+  
 }

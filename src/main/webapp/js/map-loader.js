@@ -40,9 +40,9 @@ function createMarkerForDisplay(lat, lng, content){
   });
 
   // When the user right clicks the info window, remove the marker.
-  marker.addListener('rightclick', () => {
-    marker.setMap(null);
-  });
+  marker.addListener('rightclick', function() {
+	infoWindow.
+});
 }
 
 /** Sends a marker to the backend for saving. */
@@ -75,6 +75,27 @@ function createMarkerForEdit(lat, lng){
     editMarker.setMap(null);
   });
   infoWindow.open(map, editMarker);
+}
+
+function removeMarker(lat, lng){
+	const baseURL = window.location.protocol + '//' + window.location.host;
+	const url = new URL(baseURL+'/markers');
+	url.searchParams.append('lat',lat);
+	url.searchParams.append('lng',lng);
+	url.searchParams.append('content',content);
+	
+	//removes marker from the datastore
+	fetch(url, {
+		method:'DELETE'
+	})
+	.then(reponse => reponse.json())
+	.then( marker => {
+		//finds marker after being deleted from datastore,
+		//removes it from map, then from dictionary
+		displayMarkers[lat][lng].setMap(null);
+		delete displayMarkers[lat][lng];
+	})
+	.catch(error => console.log(error));
 }
 
 /** Builds and returns HTML elements that show an editable textbox and a submit button. */
