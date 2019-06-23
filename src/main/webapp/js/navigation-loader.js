@@ -44,6 +44,9 @@ function loadNavigation() {              // eslint-disable-line no-unused-vars
             createListItem(createLink('/chart.html', 'Chart')));
 
           navigationElement.appendChild(
+            createListItem(createLink('/map.html', 'Map')));
+
+          navigationElement.appendChild(
             createListItem(createLink('/community.html', 'Site Community')));
 
           navigationElement.appendChild(
