@@ -55,9 +55,6 @@ public class ImageAnalysisServlet extends HttpServlet {
     // Get the URL of the image that the user uploaded.
     String imageUrl = getUploadedFileUrl(blobKey);
 
-    // Get the labels of the image that the user uploaded.
-    byte[] blobBytes = getBlobBytes(blobKey);
-
     // Output some HTML that shows the data the user entered.
     // A real codebase would probably store these in Datastore.
     response.setContentType("text/html");
@@ -68,6 +65,8 @@ public class ImageAnalysisServlet extends HttpServlet {
     out.println("<p>Here are the labels we extracted:</p>");
     out.println("<ul>");
 
+    // Get the labels of the image that the user uploaded.
+    byte[] blobBytes = getBlobBytes(blobKey);
     List<EntityAnnotation> imageLabels = getImageLabels(blobBytes);
     for (EntityAnnotation label : imageLabels) {
       out.println("<li>" + label.getDescription() + " " + label.getScore());
@@ -75,9 +74,9 @@ public class ImageAnalysisServlet extends HttpServlet {
     out.println("</ul>");
   }
 
-   /**
-   * Returns BlobKey that points to file uploaded by the user or null if user didn't upload a file
-   */
+  /**
+  * Returns BlobKey that points to file uploaded by the user or null if user didn't upload a file
+  */
   private BlobKey getBlobKey(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
