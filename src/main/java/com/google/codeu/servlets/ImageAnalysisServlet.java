@@ -75,7 +75,7 @@ public class ImageAnalysisServlet extends HttpServlet {
   }
 
   /**
-  * Returns BlobKey that points to file uploaded by the user or null if user didn't upload a file
+  * Returns BlobKey that points to file uploaded by the user or null if user didn't upload a file.
   */
   private BlobKey getBlobKey(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
