@@ -83,6 +83,7 @@ function buildMessageDiv(message) {
   bodyDiv.classList.add('message-body');
   bodyDiv.classList.add('padded');
   bodyDiv.innerHTML = message.text;
+  bodyDiv.innerHTML += message.imageLabels;
 
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message-div');
@@ -103,21 +104,21 @@ function buildUI() {
 
 /**Fetches boba data and creates map */
 function createBobaMap(){
-      fetch('/boba_spots').then(function(response) {
-        return response.json();
-      }).then((boba) => {
+  fetch('/boba_spots').then(function(response) {
+    return response.json();
+  }).then((boba) => {
 
-        const map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 37.756903, lng: -122.442739},
-          zoom:7
-        });
+    const map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 37.756903, lng: -122.442739},
+      zoom:7
+    });
 
-        boba.forEach((boba) => {
-          new google.maps.Marker({
-            position: {lat: boba.lat, lng: boba.lng},
-            map: map
-          });
-        });
+    boba.forEach((boba) => {
+      new google.maps.Marker({
+        position: {lat: boba.lat, lng: boba.lng},
+        map: map
       });
-    }
+    });
+  });
+}
 

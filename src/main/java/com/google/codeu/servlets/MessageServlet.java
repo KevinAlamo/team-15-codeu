@@ -26,10 +26,19 @@ import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.cloud.vision.v1.AnnotateImageRequest;
+import com.google.cloud.vision.v1.AnnotateImageResponse;
+import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
+import com.google.cloud.vision.v1.EntityAnnotation;
+import com.google.cloud.vision.v1.Feature;
+import com.google.cloud.vision.v1.Image;
+import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
 
+import com.google.protobuf.ByteString;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,26 +107,41 @@ public class MessageServlet extends HttpServlet {
     String regex = "(https?://\\S+\\.(png|jpg|gif|jpeg))";
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-    List<String> imageBlobUrls = getUploadUrl(request, "image");
+    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+    List<BlobKey> blobKeys = getBlobKeys(request, "image");
+    List<String> imageBlobUrls = null;
+    List<byte[]> blobBytes = null;
+    List<List<EntityAnnotation>> imageLabels = null;
+    if (blobKeys != null) {
+      imageBlobUrls = getUploadUrl(blobstoreService, blobKeys);
+      blobBytes = getBlobBytes(blobKeys,blobstoreService);
+      imageLabels = getImageLabels(blobBytes);
+    }
+
+    String labels = "";
     //add image tag on uploads
     if (imageBlobUrls != null) {
-      for (String url:imageBlobUrls) {
-        textWithImagesReplaced += "<img src=\"" + url + "\" />";   
+      for (int i = 0; i < imageBlobUrls.size(); i++) {
+        String url = imageBlobUrls.get(i);
+        textWithImagesReplaced += "<img src=\"" + url + "\" />";
+        for (EntityAnnotation label : imageLabels.get(i)) {
+          labels =  labels + ", " + label;
+        }
       }
     }
 
-    Message message = new Message(user, textWithImagesReplaced);
+    Message message = new Message(user, textWithImagesReplaced, labels);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + user);
   }
-  
-  private List<String> getUploadUrl(HttpServletRequest request, String formInputElementName) {
+
+  private List<BlobKey> getBlobKeys(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get(formInputElementName);
 
-   
+
     if (blobKeys == null || blobKeys.isEmpty()) {
       return null;
     }
@@ -128,15 +152,18 @@ public class MessageServlet extends HttpServlet {
         blobstoreService.delete(blobKey);
       }
     }
-    
+    return blobKeys;
+  }
+
+  private List<String> getUploadUrl(BlobstoreService blobstoreService, List<BlobKey> blobKeys) {
     ImagesService imagesService = ImagesServiceFactory.getImagesService();
     List<String> imageBlobUrls = new ArrayList<String>();
-    
+
     for (BlobKey blobKey: blobKeys) {
       String fileType = new BlobInfoFactory().loadBlobInfo(blobKey).getContentType().toString();
       fileType = fileType.toLowerCase();
-      if (!(fileType.equals("image/png") || fileType.equals("image/jpg") 
-            || fileType.equals("image/gif") || fileType.equals("image/jpeg"))) {
+      if (!(fileType.equals("image/png") || fileType.equals("image/jpg")
+          || fileType.equals("image/gif") || fileType.equals("image/jpeg"))) {
         //not yet supported so deleted
         blobstoreService.delete(blobKey);
       } else {
@@ -145,7 +172,66 @@ public class MessageServlet extends HttpServlet {
         imageBlobUrls.add(imageUrl);
       }
     }
-  
     return imageBlobUrls;
+  }
+
+  /**
+   * Blobstore stores files as binary data. This function retrieves the
+   * binary data stored at the BlobKey parameter.
+   */
+  private List<byte[]> getBlobBytes(List<BlobKey> blobKeys, BlobstoreService blobstoreService) throws IOException {
+    List<byte[]> bytes = new ArrayList<byte[]>();
+
+    for (BlobKey key : blobKeys) {
+      ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
+      int fetchSize = BlobstoreService.MAX_BLOB_FETCH_SIZE;
+      long currentByteIndex = 0;
+      boolean continueReading = true;
+      while (continueReading) {
+        // end index is inclusive, so we have to subtract 1 to get fetchSize bytes
+        byte[] b = blobstoreService.fetchData(key, currentByteIndex, currentByteIndex + fetchSize - 1);
+        outputBytes.write(b);
+
+        // if we read fewer bytes than we requested, then we reached the end
+        if (b.length < fetchSize) {
+          continueReading = false;
+        }
+
+        currentByteIndex += fetchSize;
+      }
+      bytes.add(outputBytes.toByteArray());
+    }
+    return bytes;
+  }
+
+  /**
+   * Uses the Google Cloud Vision API to generate a list of labels that apply to the image
+   * represented by the binary data stored in imgBytes.
+   */
+  private List<List<EntityAnnotation>> getImageLabels(List<byte[]> imgBytes) throws IOException {
+    List<List<EntityAnnotation>> annotations = new ArrayList<>();
+    for (byte[] imgByte : imgBytes) {
+      ByteString byteString = ByteString.copyFrom(imgByte);
+      Image image = Image.newBuilder().setContent(byteString).build();
+
+      Feature feature = Feature.newBuilder().setType(Feature.Type.LABEL_DETECTION).build();
+      AnnotateImageRequest request =
+          AnnotateImageRequest.newBuilder().addFeatures(feature).setImage(image).build();
+      List<AnnotateImageRequest> requests = new ArrayList<>();
+      requests.add(request);
+
+      ImageAnnotatorClient client = ImageAnnotatorClient.create();
+      BatchAnnotateImagesResponse batchResponse = client.batchAnnotateImages(requests);
+      client.close();
+      List<AnnotateImageResponse> imageResponses = batchResponse.getResponsesList();
+      AnnotateImageResponse imageResponse = imageResponses.get(0);
+
+      if (imageResponse.hasError()) {
+        System.err.println("Error getting image labels: " + imageResponse.getError().getMessage());
+        return null;
+      }
+      annotations.add(imageResponse.getLabelAnnotationsList());
+    }
+    return annotations;
   }
 }
