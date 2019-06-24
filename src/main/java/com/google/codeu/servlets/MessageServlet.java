@@ -127,7 +127,7 @@ public class MessageServlet extends HttpServlet {
         int lastIndexCheck = 0;
         for (EntityAnnotation label : imageLabels.get(i)) {
           textWithImagesReplaced = textWithImagesReplaced + label.getDescription();
-          if (lastIndexCheck != imageLabels.get(i).size()-1) {
+          if (lastIndexCheck != imageLabels.get(i).size() - 1) {
             textWithImagesReplaced += ", ";
           }
           lastIndexCheck++;
@@ -185,17 +185,17 @@ public class MessageServlet extends HttpServlet {
    * Blobstore stores files as binary data. This function retrieves the
    * binary data stored at the BlobKey parameter.
    */
-  private List<byte[]> getBlobBytes(List<BlobKey> blobKeys, BlobstoreService blobstoreService) throws IOException {
-    List<byte[]> bytes = new ArrayList<byte[]>();
+  private List<byte[]> getBlobBytes(List<BlobKey> bk, BlobstoreService bss) throws IOException {
+    List<byte[]> bytes = new ArrayList<>();
 
-    for (BlobKey key : blobKeys) {
+    for (BlobKey key : bk) {
       ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
-      int fetchSize = BlobstoreService.MAX_BLOB_FETCH_SIZE;
-      long currentByteIndex = 0;
+      int fetchSize = bss.MAX_BLOB_FETCH_SIZE;
+      long curr = 0;
       boolean continueReading = true;
       while (continueReading) {
         // end index is inclusive, so we have to subtract 1 to get fetchSize bytes
-        byte[] b = blobstoreService.fetchData(key, currentByteIndex, currentByteIndex + fetchSize - 1);
+        byte[] b = bss.fetchData(key, curr, curr + fetchSize - 1);
         outputBytes.write(b);
 
         // if we read fewer bytes than we requested, then we reached the end
@@ -203,7 +203,7 @@ public class MessageServlet extends HttpServlet {
           continueReading = false;
         }
 
-        currentByteIndex += fetchSize;
+        curr += fetchSize;
       }
       bytes.add(outputBytes.toByteArray());
     }

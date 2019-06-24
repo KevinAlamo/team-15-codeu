@@ -47,7 +47,7 @@ public class ImageAnalysisServlet extends HttpServlet {
     BlobKey blobKey = getBlobKey(request, "image");
 
     // User didn't upload a file, so render an error message.
-    if(blobKey == null) {
+    if (blobKey == null) {
       out.println("Please upload an image file.");
       return;
     }
@@ -68,22 +68,22 @@ public class ImageAnalysisServlet extends HttpServlet {
     out.println("</a>");
     out.println("<p>Here are the labels we extracted:</p>");
     out.println("<ul>");
-    for(EntityAnnotation label : imageLabels){
+    for (EntityAnnotation label : imageLabels) {
       out.println("<li>" + label.getDescription() + " " + label.getScore());
     }
     out.println("</ul>");
   }
 
   /**
-   * Returns the BlobKey that points to the file uploaded by the user, or null if the user didn't upload a file.
+   * Returns BlobKey that points to file uploaded by the user or null if user didn't upload a file
    */
-  private BlobKey getBlobKey(HttpServletRequest request, String formInputElementName){
+  private BlobKey getBlobKey(HttpServletRequest request, String formInputElementName) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get("image");
 
     // User submitted form without selecting a file, so we can't get a BlobKey. (devserver)
-    if(blobKeys == null || blobKeys.isEmpty()) {
+    if (blobKeys == null || blobKeys.isEmpty()) {
       return null;
     }
 
@@ -104,16 +104,16 @@ public class ImageAnalysisServlet extends HttpServlet {
    * Blobstore stores files as binary data. This function retrieves the
    * binary data stored at the BlobKey parameter.
    */
-  private byte[] getBlobBytes(BlobKey blobKey) throws IOException {
+  private byte[] getBlobBytes(BlobKey bk) throws IOException {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
 
     int fetchSize = BlobstoreService.MAX_BLOB_FETCH_SIZE;
-    long currentByteIndex = 0;
+    long curr = 0;
     boolean continueReading = true;
     while (continueReading) {
       // end index is inclusive, so we have to subtract 1 to get fetchSize bytes
-      byte[] b = blobstoreService.fetchData(blobKey, currentByteIndex, currentByteIndex + fetchSize - 1);
+      byte[] b = blobstoreService.fetchData(bk, curr, curr + fetchSize - 1);
       outputBytes.write(b);
 
       // if we read fewer bytes than we requested, then we reached the end
@@ -121,7 +121,7 @@ public class ImageAnalysisServlet extends HttpServlet {
         continueReading = false;
       }
 
-      currentByteIndex += fetchSize;
+      curr += fetchSize;
     }
 
     return outputBytes.toByteArray();

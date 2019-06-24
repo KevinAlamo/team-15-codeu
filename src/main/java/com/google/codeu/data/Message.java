@@ -25,7 +25,6 @@ public class Message {
   private String user;
   private String text;
   private long timestamp;
-  private String imageLabels;
 
   /**
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
@@ -40,12 +39,6 @@ public class Message {
     this.user = user;
     this.text = text;
     this.timestamp = timestamp;
-  }
-
-  public String getImageLabels() { return imageLabels; }
-
-  public void setImageLabels(String labels) {
-    this.imageLabels = labels;
   }
 
   public UUID getId() {
