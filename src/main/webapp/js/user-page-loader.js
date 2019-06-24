@@ -83,7 +83,6 @@ function buildMessageDiv(message) {
   bodyDiv.classList.add('message-body');
   bodyDiv.classList.add('padded');
   bodyDiv.innerHTML = message.text;
-  bodyDiv.innerHTML += message.imageLabels;
 
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message-div');

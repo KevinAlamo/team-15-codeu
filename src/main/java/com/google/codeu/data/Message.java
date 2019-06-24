@@ -31,16 +31,15 @@ public class Message {
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
    * random ID and uses the current system time for the creation time.
    */
-  public Message(String user, String text, String imageLabels) {
-    this(UUID.randomUUID(), user, text, System.currentTimeMillis(), imageLabels);
+  public Message(String user, String text) {
+    this(UUID.randomUUID(), user, text, System.currentTimeMillis());
   }
 
-  public Message(UUID id, String user, String text, long timestamp, String imageLabels) {
+  public Message(UUID id, String user, String text, long timestamp) {
     this.id = id;
     this.user = user;
     this.text = text;
     this.timestamp = timestamp;
-    this.imageLabels = imageLabels;
   }
 
   public String getImageLabels() { return imageLabels; }

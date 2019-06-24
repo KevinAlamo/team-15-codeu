@@ -118,19 +118,25 @@ public class MessageServlet extends HttpServlet {
       imageLabels = getImageLabels(blobBytes);
     }
 
-    String labels = "";
     //add image tag on uploads
     if (imageBlobUrls != null) {
       for (int i = 0; i < imageBlobUrls.size(); i++) {
         String url = imageBlobUrls.get(i);
         textWithImagesReplaced += "<img src=\"" + url + "\" />";
+        textWithImagesReplaced += "<p>";
+        int lastIndexCheck = 0;
         for (EntityAnnotation label : imageLabels.get(i)) {
-          labels =  labels + ", " + label;
+          textWithImagesReplaced = textWithImagesReplaced + label.getDescription();
+          if (lastIndexCheck != imageLabels.get(i).size()-1) {
+            textWithImagesReplaced += ", ";
+          }
+          lastIndexCheck++;
         }
+        textWithImagesReplaced += "</p>";
       }
     }
 
-    Message message = new Message(user, textWithImagesReplaced, labels);
+    Message message = new Message(user, textWithImagesReplaced);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + user);
