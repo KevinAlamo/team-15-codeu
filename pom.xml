@@ -39,7 +39,7 @@ limitations under the License.
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
 
@@ -59,6 +59,18 @@ limitations under the License.
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-datastore</artifactId>
       <version>1.52.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-vision</artifactId>
+      <version>1.70.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1</version>
     </dependency>
 
   </dependencies>
