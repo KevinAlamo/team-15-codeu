@@ -62,13 +62,13 @@
 
 /*This adds the styling to user-page*/
 body {
-  background: linear-gradient(white, #ccccff) fixed;
+  background: linear-gradient(white, #757575) fixed;
   font-family: sans-serif;
   margin: 0;
 }
 
 nav {
-  background-color: #ccccff;
+  background-color: #bcbcbc;
   font-size: 18pt;
   padding: 10px;
 }
@@ -83,7 +83,7 @@ h2 {
 }
 
 input[type=submit] {
-  background-color: #ccccff;
+  background-color: #bcbcbc;
   font-size: 14pt;
   height: 50px;
   width: 100px;
@@ -103,7 +103,7 @@ input[type=submit] {
 }
 
 .message-header {
-  background-image: linear-gradient(to right, white , #ccccff);
+  background-image: linear-gradient(to right, white , #64dd17);
   border-bottom: thin solid black;
 }
 
