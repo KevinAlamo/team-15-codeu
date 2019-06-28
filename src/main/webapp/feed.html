@@ -6,23 +6,29 @@
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/navigation-loader.js"></script>
     <script src="/js/feed-loader.js"></script>
+    <script src="/js/fileuploadform.js"></script>
 </head>
-<body onload="buildUI(); loadNavigation();">
+<body onload="buildUI(); loadNavigation(); fetchBlobstoreUrlAndShowForm();">
     <nav>
       <ul id="navigation">
       </ul>
     </nav>
     <div id="content">
-        <h1>Message Feed</h1>
+    <div class="padded rounded panel centered">
+    <h1 id="page-title">Message Feed</h1>
+    </div>
 
-        <form id="message-form" action="/messages" method="POST" class="hidden">
-            Enter a new message:
-            <br/>
-            <textarea name="text" id="message-input"></textarea>
-            <br/>
-            <input type="submit" value="Submit">
-        </form>
-
+    <div class="padded rounded panel">
+    <form id="message-form" method="POST" class="hidden" enctype="multipart/form-data">
+      <h2>Enter a new message:</h2>
+      <br/>
+      <textarea name="text" id="message-input"></textarea>
+      <br/>
+      <input type="file" name="image" multiple>
+      <br/><br/>
+      <input type="submit" value="Submit">
+    </form>
+    </div>
         <hr/>
         <div id="message-container">Loading...</div>
     </div>
