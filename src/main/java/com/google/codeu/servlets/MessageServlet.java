@@ -110,7 +110,7 @@ public class MessageServlet extends HttpServlet {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     List<BlobKey> blobKeys = getBlobKeys(request, "image");
     List<String> imageBlobUrls = null;
-    List<byte[]> blobBytes = null;
+    List<byte[]> blobBytes;
     List<List<EntityAnnotation>> imageLabels = null;
     if (blobKeys != null) {
       imageBlobUrls = getUploadUrl(blobstoreService, blobKeys);
@@ -139,7 +139,7 @@ public class MessageServlet extends HttpServlet {
     Message message = new Message(user, textWithImagesReplaced);
     datastore.storeMessage(message);
 
-    response.sendRedirect("/user-page.html?user=" + user);
+    response.sendRedirect(request.getHeader("referer"));
   }
 
   private List<BlobKey> getBlobKeys(HttpServletRequest request, String formInputElementName) {
