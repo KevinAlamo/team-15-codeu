@@ -56,9 +56,6 @@ function loadNavigation() {              // eslint-disable-line no-unused-vars
             createListItem(createLink('/stats.html', 'Site Stats')));
 
           navigationElement.appendChild(
-              createListItem(createLink('/index.jsp', 'Image Analysis')));
-
-          navigationElement.appendChild(
               createListItem(createLink('/logout', 'Logout')));
 
         } else {
