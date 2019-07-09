@@ -166,9 +166,9 @@ public class MessageServlet extends HttpServlet {
     List<String> imageBlobUrls = new ArrayList<String>();
 
     for (BlobKey blobKey: blobKeys) {
-        BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
-        String contentType = blobInfo.getContentType();
-    	String fileType = contentType.toString();
+      BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
+      String contentType = blobInfo.getContentType();
+      String fileType = contentType.toString();
       fileType = fileType.toLowerCase();
       if (!(fileType.equals("image/png") || fileType.equals("image/jpg")
           || fileType.equals("image/gif") || fileType.equals("image/jpeg"))) {
