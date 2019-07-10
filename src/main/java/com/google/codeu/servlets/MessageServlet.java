@@ -125,7 +125,7 @@ public class MessageServlet extends HttpServlet {
       }
 
         //add image tag on uploads
-        if (imageBlobUrls != null) {
+      if (imageBlobUrls != null) {
         for (int i = 0; i < imageBlobUrls.size(); i++) {
           String url = imageBlobUrls.get(i);
           textWithImagesReplaced += "<img src=\"" + url + "\" />";
