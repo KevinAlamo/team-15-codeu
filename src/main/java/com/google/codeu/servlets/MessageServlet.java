@@ -124,7 +124,7 @@ public class MessageServlet extends HttpServlet {
         imageLabels = getImageLabels(blobBytes);
       }
 
-        //add image tag on uploads
+      //add image tag on uploads
       if (imageBlobUrls != null) {
         for (int i = 0; i < imageBlobUrls.size(); i++) {
           String url = imageBlobUrls.get(i);
