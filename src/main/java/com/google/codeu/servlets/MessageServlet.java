@@ -113,33 +113,33 @@ public class MessageServlet extends HttpServlet {
     
     if (!file.get(0).getFilename().isEmpty()) {
         
-        List<BlobKey> blobKeys = getBlobKeys(request, "image");
-        List<String> imageBlobUrls = null;
+      List<BlobKey> blobKeys = getBlobKeys(request, "image");
+      List<String> imageBlobUrls = null;
         
-        List<byte[]> blobBytes;
-        List<List<EntityAnnotation>> imageLabels = null;
-        if (blobKeys != null) {
-          imageBlobUrls = getUploadUrl(blobstoreService, blobKeys);
-          blobBytes = getBlobBytes(blobKeys,blobstoreService);
-          imageLabels = getImageLabels(blobBytes);
-        }
+      List<byte[]> blobBytes;
+      List<List<EntityAnnotation>> imageLabels = null;
+      if (blobKeys != null) {
+        imageBlobUrls = getUploadUrl(blobstoreService, blobKeys);
+        blobBytes = getBlobBytes(blobKeys,blobstoreService);
+        imageLabels = getImageLabels(blobBytes);
+      }
 
         //add image tag on uploads
         if (imageBlobUrls != null) {
-          for (int i = 0; i < imageBlobUrls.size(); i++) {
-            String url = imageBlobUrls.get(i);
-            textWithImagesReplaced += "<img src=\"" + url + "\" />";
-            textWithImagesReplaced += "<p>";
-            int lastIndexCheck = 0;
-            for (EntityAnnotation label : imageLabels.get(i)) {
-              textWithImagesReplaced = textWithImagesReplaced + label.getDescription();
-              if (lastIndexCheck != imageLabels.get(i).size() - 1) {
-                textWithImagesReplaced += ", ";
-              }
-              lastIndexCheck++;
+        for (int i = 0; i < imageBlobUrls.size(); i++) {
+          String url = imageBlobUrls.get(i);
+          textWithImagesReplaced += "<img src=\"" + url + "\" />";
+          textWithImagesReplaced += "<p>";
+          int lastIndexCheck = 0;
+          for (EntityAnnotation label : imageLabels.get(i)) {
+            textWithImagesReplaced = textWithImagesReplaced + label.getDescription();
+            if (lastIndexCheck != imageLabels.get(i).size() - 1) {
+              textWithImagesReplaced += ", ";
             }
-            textWithImagesReplaced += "</p>";
+            lastIndexCheck++;
           }
+          textWithImagesReplaced += "</p>";
+        }
         }
     }
     
@@ -172,9 +172,9 @@ public class MessageServlet extends HttpServlet {
     List<String> imageBlobUrls = new ArrayList<String>();
 
     for (BlobKey blobKey: blobKeys) {
-        BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
-        String contentType = blobInfo.getContentType();
-    	String fileType = contentType.toString();
+      BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
+      String contentType = blobInfo.getContentType();
+      String fileType = contentType.toString();
       fileType = fileType.toLowerCase();
       if (!(fileType.equals("image/png") || fileType.equals("image/jpg")
           || fileType.equals("image/gif") || fileType.equals("image/jpeg"))) {
