@@ -1,3 +1,4 @@
+    
 /*
  * Copyright 2019 Google Inc.
  *
@@ -21,6 +22,7 @@ import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.blobstore.FileInfo;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
@@ -103,51 +105,55 @@ public class MessageServlet extends HttpServlet {
 
     String user = userService.getCurrentUser().getEmail();
     String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
-
     String regex = "(https?://\\S+\\.(png|jpg|gif|jpeg))";
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-    BlobstoreServiceFactory bsf = new BlobstoreServiceFactory();
-    BlobstoreService blobstoreService = bsf.getBlobstoreService();
-    List<BlobKey> blobKeys = getBlobKeys(request, "image", blobstoreService, user);
-    List<String> imageBlobUrls = null;
-    List<byte[]> blobBytes;
-    List<List<EntityAnnotation>> imageLabels = null;
-    if (blobKeys != null) {
-      imageBlobUrls = getUploadUrl(blobstoreService, blobKeys);
-      blobBytes = getBlobBytes(blobKeys,blobstoreService);
-      imageLabels = getImageLabels(blobBytes);
-    }
+    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+    Map<String, List<FileInfo>> fileName = blobstoreService.getFileInfos(request);
+    List<FileInfo> file = fileName.get("image");
 
-    //add image tag on uploads
-    if (imageBlobUrls != null) {
-      for (int i = 0; i < imageBlobUrls.size(); i++) {
-        String url = imageBlobUrls.get(i);
-        textWithImagesReplaced += "<img src=\"" + url + "\" />";
-        textWithImagesReplaced += "<p>";
-        int lastIndexCheck = 0;
-        for (EntityAnnotation label : imageLabels.get(i)) {
-          textWithImagesReplaced = textWithImagesReplaced + label.getDescription();
-          if (lastIndexCheck != imageLabels.get(i).size() - 1) {
-            textWithImagesReplaced += ", ";
+    if (!file.get(0).getFilename().isEmpty()) {
+
+      List<BlobKey> blobKeys = getBlobKeys(request, "image");
+      List<String> imageBlobUrls = null;
+
+      List<byte[]> blobBytes;
+      List<List<EntityAnnotation>> imageLabels = null;
+      if (blobKeys != null) {
+        imageBlobUrls = getUploadUrl(blobstoreService, blobKeys);
+        blobBytes = getBlobBytes(blobKeys,blobstoreService);
+        imageLabels = getImageLabels(blobBytes);
+      }
+
+      //add image tag on uploads
+      if (imageBlobUrls != null) {
+        for (int i = 0; i < imageBlobUrls.size(); i++) {
+          String url = imageBlobUrls.get(i);
+          textWithImagesReplaced += "<img src=\"" + url + "\" />";
+          textWithImagesReplaced += "<p>";
+          int lastIndexCheck = 0;
+          for (EntityAnnotation label : imageLabels.get(i)) {
+            textWithImagesReplaced = textWithImagesReplaced + label.getDescription();
+            if (lastIndexCheck != imageLabels.get(i).size() - 1) {
+              textWithImagesReplaced += ", ";
+            }
+            lastIndexCheck++;
           }
-          lastIndexCheck++;
+          textWithImagesReplaced += "</p>";
         }
-        textWithImagesReplaced += "</p>";
       }
     }
 
     Message message = new Message(user, textWithImagesReplaced);
     datastore.storeMessage(message);
-
     response.sendRedirect(request.getHeader("referer"));
   }
 
-  private List<BlobKey> getBlobKeys(HttpServletRequest request, String formInputElementName, BlobstoreService blobstoreService, String user) {
+  private List<BlobKey> getBlobKeys(HttpServletRequest request, String formInputElementName) {
+    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
-//    Message m = new Message(user, "" + (blobs.get(formInputElementName).get(0)));
-//    datastore.storeMessage(m);
     List<BlobKey> blobKeys = blobs.get(formInputElementName);
+
 
     if (blobKeys == null || blobKeys.isEmpty()) {
       return null;
@@ -167,7 +173,9 @@ public class MessageServlet extends HttpServlet {
     List<String> imageBlobUrls = new ArrayList<String>();
 
     for (BlobKey blobKey: blobKeys) {
-      String fileType = new BlobInfoFactory().loadBlobInfo(blobKey).getContentType().toString();
+      BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
+      String contentType = blobInfo.getContentType();
+      String fileType = contentType.toString();
       fileType = fileType.toLowerCase();
       if (!(fileType.equals("image/png") || fileType.equals("image/jpg")
           || fileType.equals("image/gif") || fileType.equals("image/jpeg"))) {

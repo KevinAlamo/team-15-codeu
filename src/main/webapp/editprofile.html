@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile</title>
+</head>
+<body>
+<form id="profile-form" method="POST" class="hidden" enctype="multipart/form-data">
+  <h2>Edit your information:</h2>
+  Display Name:<br>
+  <input type="text" name="name"><br><br>
+  Profile Picture:<br>
+  <input type="file" name="image"><br><br>
+  Age: <br>
+  <input type="text" name="age"><br><br>
+  Gender:<br>
+  <select>
+    <option value="Male">Female</option>
+    <option value="Female">Male</option>
+    <option value="Other">Other</option>
+  </select><br><br>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>
