@@ -107,8 +107,9 @@ public class MessageServlet extends HttpServlet {
     String regex = "(https?://\\S+\\.(png|jpg|gif|jpeg))";
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-    List<BlobKey> blobKeys = getBlobKeys(request, "image");
+    BlobstoreServiceFactory bsf = new BlobstoreServiceFactory();
+    BlobstoreService blobstoreService = bsf.getBlobstoreService();
+    List<BlobKey> blobKeys = getBlobKeys(request, "image", blobstoreService, user);
     List<String> imageBlobUrls = null;
     List<byte[]> blobBytes;
     List<List<EntityAnnotation>> imageLabels = null;
@@ -142,11 +143,11 @@ public class MessageServlet extends HttpServlet {
     response.sendRedirect(request.getHeader("referer"));
   }
 
-  private List<BlobKey> getBlobKeys(HttpServletRequest request, String formInputElementName) {
-    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+  private List<BlobKey> getBlobKeys(HttpServletRequest request, String formInputElementName, BlobstoreService blobstoreService, String user) {
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
+//    Message m = new Message(user, "" + (blobs.get(formInputElementName).get(0)));
+//    datastore.storeMessage(m);
     List<BlobKey> blobKeys = blobs.get(formInputElementName);
-
 
     if (blobKeys == null || blobKeys.isEmpty()) {
       return null;
