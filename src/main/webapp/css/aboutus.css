@@ -11,8 +11,9 @@
 }
 
 .SiriBorder{
+	border-color: PaleVioletRed; 
 	border-style: solid;
-	border-width: 10px; border-color: PaleVioletRed; 
+	border-width: 10px; 
 }
 
 #Kevin{
