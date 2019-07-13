@@ -17,6 +17,7 @@
 /* Prevent the page from becoming too wide. */
 body {
   max-width: 100%;
+  font-family: Helvetica;
 }
 
 /* Remove bullet points from navigation bar. */
@@ -31,6 +32,3 @@ nav li {
   margin-right: 10px
 }
 
-* {
-    font-family: helvetica;
-  }
