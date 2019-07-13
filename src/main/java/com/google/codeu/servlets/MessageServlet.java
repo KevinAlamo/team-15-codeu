@@ -111,9 +111,8 @@ public class MessageServlet extends HttpServlet {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<FileInfo>> fileName = blobstoreService.getFileInfos(request);
     List<FileInfo> file = fileName.get("image");
-
-    if (!file.get(0).getFilename().isEmpty()) {
-
+    
+    if ((file != null) && (!file.get(0).getFilename().isEmpty())) {
       List<BlobKey> blobKeys = getBlobKeys(request, "image");
       List<String> imageBlobUrls = null;
 
