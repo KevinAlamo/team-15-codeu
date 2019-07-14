@@ -19,6 +19,7 @@ public class UserDatastore {
    * CSS for editing profile .. so ugly right now
    * connect submission to servlet somehow
    * display updated user info on user page
+   * exception when user enters in non numberical data for age?
    * @param user
    */
   public void storeUser(User user) {

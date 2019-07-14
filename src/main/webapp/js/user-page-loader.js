@@ -101,6 +101,10 @@ function buildUI() {
   fetchMessages();
 }
 
+function editProfileURL() {
+  location.href='/editprofile.html?user=' + parameterUsername;
+}
+
 /**Fetches boba data and creates map */
 function createBobaMap(){
   fetch('/boba_spots').then(function(response) {

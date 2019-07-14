@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
   <title>Edit Profile</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/editprofile.css">
+  <script src="/js/edit-profile-loader.js"></script>
 </head>
-<body>
+<body onload="setDefaults()">
 <form id="profile-form" method="POST" class="hidden" enctype="multipart/form-data">
-  <h2>Edit your information:</h2>
+  <div id="header">
+    <h2>Edit your information:</h2>
+  </div>
   Display Name:<br>
   <input type="text" name="name"><br><br>
   Profile Picture:<br>
@@ -19,7 +24,8 @@
     <option value="Female">Male</option>
     <option value="Other">Other</option>
   </select><br><br>
-  <input type="submit" value="Submit">
+  <input class="button" type="submit" value="Submit">
+  <button class="button" type="button" onclick= "goBack()">Cancel</button>
 </form>
 </body>
 </html>
