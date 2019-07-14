@@ -21,7 +21,7 @@ function drawChart(){
       }
 
       var options = {
-        title: 'Happpiness vs Freedom',
+        title: 'Happiness vs Freedom',
         hAxis: {title: 'Freedom', minValue: 0, maxValue: 200},
         vAxis: {title: 'Happiness', minValue: 0, maxValue: 200},
         trendlines: { 0: {} }

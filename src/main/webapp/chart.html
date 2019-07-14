@@ -3,6 +3,7 @@
   <head>
     <title>Custom Chart</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/chart.css">
     <script src="/js/navigation-loader.js"></script>
   </head>
    <body onload="loadNavigation();">
@@ -10,11 +11,17 @@
       <ul id="navigation">
       </ul>
     </nav>
-    <h1>Chart</h1>
+    <div id="title"> <h1>Chart</h1> </div>
+	<div id="content">
+	<div id = "text">
     <p>This chart currently displays the relationship between freedom and happiness for different countries all across the world.</p>
     <p>In the future, after we accumulate more data, we hope to make visualizations regarding our user statistics, such as their age groups and which activities they are most interested in.</p>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	</div>
+	<div id= "chart">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="js/chart-loader.js"></script>
-    <div id="chart_div2" style="width: 900px; height: 500px;"></div>
-  </body>
+    <div id="chart_div2" style="width: 900px; height: 500px;" align="center"></div>
+    </div>
+    </div>
+   </body>
 </html>
