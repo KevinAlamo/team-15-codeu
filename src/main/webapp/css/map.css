@@ -15,3 +15,7 @@ h1{
   max-width: 600px;
   text-align: center;
 }
+hr{
+	border-color: MediumAquamarine;
+	width: 100%;
+}

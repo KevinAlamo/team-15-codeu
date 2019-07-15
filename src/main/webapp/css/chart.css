@@ -9,6 +9,7 @@
     margin-right: auto;
 	max-width: 600px;
 	text-align: left;
+
 }
 #chart{
 	display: flex;
@@ -17,4 +18,9 @@
 
 #title{
 	text-align: center;
+}
+
+hr{
+	border-color: MediumAquamarine;
+	width: 50%;
 }
