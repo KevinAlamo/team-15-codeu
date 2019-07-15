@@ -37,14 +37,14 @@
 
 /* Give each message a rounded border. */
 .message-div {
-  border: thin solid LightGrey;
+  border: thick solid DarkCyan;
   border-radius: 5px;
   margin-top: 20px;
 }
 
 /* Add a bottom border to the message header. */
 .message-header {
-  border-bottom: thin solid LightGrey;
+  border-bottom: thick solid DarkCyan;
   padding: 5px;
 }
 
@@ -62,7 +62,7 @@
 
 /*This adds the styling to user-page*/
 body {
-  background: linear-gradient(white, PowderBlue) scroll;
+  background: linear-gradient(white, Honeydew) scroll;
   font-family: helvetica;
   margin: 0;
 }
@@ -82,11 +82,13 @@ h2 {
 }
 
 input[type=submit] {
-  background-color: AliceBlue;
+  border: 2px solid MediumAquamarine;
+  color: gray;
+  background-color: Honeydew;
+  padding: 8px 16px;
   border-radius: 8px;
-  font-size: 14pt;
-  height: 50px;
-  width: 100px;
+  font-size: 16px;
+  font-weight: bold;
  
 }
 
@@ -103,8 +105,8 @@ input[type=submit] {
 }
 
 .message-header {
-  background-image: linear-gradient(to right, white , AliceBlue);
-  border-bottom: thin solid LightGrey;
+  background-color: MediumAquamarine;
+  border-bottom: thick solid DarkCyan;
 }
 
 .message-body {
@@ -125,11 +127,36 @@ input[type=submit] {
 }
 
 .rounded {
-  border: thin solid LightGrey;
+  border: thick solid DarkCyan;
   border-radius: 5px;
   overflow: hidden;
 }
 
 .hidden {
   display: none;
+}
+
+/*This creates a custom upload file button*/
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  border: 2px solid MediumAquamarine;
+  color: gray;
+  background-color: Honeydew;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
