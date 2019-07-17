@@ -16,6 +16,18 @@
 	border-width: 10px; 
 }
 
+.KevinBorder{
+	border-color: OliveDrab; 
+	border-style: solid;
+	border-width: 10px; 
+}
+
+.ConnieBorder{
+	border-color: LightSkyBlue; 
+	border-style: solid;
+	border-width: 10px; 
+}
+
 #Kevin{
 	color: OliveDrab;
 	font-size: larger;
