@@ -6,7 +6,6 @@ import com.google.codeu.data.User;
 import com.google.codeu.data.UserDatastore;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +44,7 @@ public class UserInfoServlet extends HttpServlet {
   }
 
   /**
-   * Stores a new {@link }.
+   * Stores a new {@link User}.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -56,22 +55,12 @@ public class UserInfoServlet extends HttpServlet {
       return;
     }
 
-    PrintWriter writer = response.getWriter();
-
     String user = request.getParameter("name");
-
-    String htmlRespone = "<html>";
-    htmlRespone += "<h2>Your username is: " + user + "<br/>";
-    htmlRespone += "</html>";
-
-    // return response
-    writer.println(htmlRespone);
 
     User profile = new User(user);
     datastore.storeUser(profile);
 
-
-    response.sendRedirect(request.getHeader("referer"));
+    response.sendRedirect("user-page.html?user=" + user);
   }
 
 
