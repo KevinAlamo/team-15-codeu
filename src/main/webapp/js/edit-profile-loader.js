@@ -15,10 +15,10 @@ if (!parameterUsername) {
 //   //   }
 //   // }
 // }
-
-function goBack() {
-  location.href='/user-page.html?user=' + parameterUsername;
-}
+//
+// function goBack() {
+//   location.href='/user-page.html?user=' + parameterUsername;
+// }
 //
 // function fetchUserInfo() {
 //   fetch('/user-blobstore-upload-url')

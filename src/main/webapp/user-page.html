@@ -24,8 +24,13 @@ limitations under the License.
     <script src="/js/user-page-loader.js"></script>
     <script src="/js/navigation-loader.js"></script>
     <script src="/js/fileuploadform.js"></script>
+    <script type="text/javascript">
+      function editProfileURL() {
+        location.href='/editprofile.html?user=' + parameterUsername;
+      }
+    </script>
   </head>
-  <body onload="buildUI(); loadNavigation();fetchBlobstoreUrlAndShowForm();">
+  <body onload="buildUI(); loadNavigation(); fetchBlobstoreUrlAndShowForm();">
     <div id="content">
       <nav>
         <ul id="navigation">

@@ -101,9 +101,9 @@ function buildUI() {
   fetchMessages();
 }
 
-function editProfileURL() {
-  location.href='/editprofile.html?user=' + parameterUsername;
-}
+// function editProfileURL() {
+//   location.href='/editprofile.html?user=' + parameterUsername;
+// }
 
 /**Fetches boba data and creates map */
 function createBobaMap(){

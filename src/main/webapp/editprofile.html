@@ -6,6 +6,11 @@
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/editprofile.css">
   <script src="/js/edit-profile-loader.js"></script>
+  <script type="text/javascript">
+    function goBack() {
+      location.href='/user-page.html?user=' + parameterUsername;
+    }
+  </script>
 </head>
 <body>
 <form id="profile-form" method="post" action = "users" class="hidden" enctype="multipart/form-data">
