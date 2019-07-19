@@ -60,8 +60,6 @@ public class UserInfoServlet extends HttpServlet {
     User profile = new User(user);
     datastore.storeUser(profile);
 
-    response.sendRedirect("user-page.html?user=" + user);
+    response.sendRedirect(request.getHeader("referer"));
   }
-
-
 }
