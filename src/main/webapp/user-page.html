@@ -24,19 +24,25 @@ limitations under the License.
     <script src="/js/user-page-loader.js"></script>
     <script src="/js/navigation-loader.js"></script>
     <script src="/js/fileuploadform.js"></script>
+    <script type="text/javascript">
+      function editProfileURL() {
+        location.href='/editprofile.html?user=' + parameterUsername;
+      }
+    </script>
   </head>
-  <body onload="buildUI(); loadNavigation();fetchBlobstoreUrlAndShowForm();">
-    <nav>
-      <ul id="navigation">
-      </ul>
-    </nav>
+  <body onload="buildUI(); loadNavigation(); fetchBlobstoreUrlAndShowForm();">
     <div id="content">
-    <div class="padded rounded panel centered">
-    <h1 id="page-title">User Page</h1>
-    <p>This page allows users to post messages and images. Additionally, uploaded images will be followed by a description of the image itself.</p>
-    <p>In the future, we hope that this page will allow users to post about what activities they are interested in and when they are available.</p>
-    </div>
-    
+      <nav>
+        <ul id="navigation">
+        </ul>
+      </nav>
+      <div class="padded rounded panel centered">
+      <h1 id="page-title">User Page</h1>
+      <button  id = 'profile-edit' onclick= "editProfileURL()" type="button">
+        Edit your profile!</button>
+      <p>This page allows users to post messages and images. Additionally, uploaded images will be followed by a description of the image itself.</p>
+      <p>In the future, we hope that this page will allow users to post about what activities they are interested in and when they are available.</p>
+      </div>
     <div class="padded rounded panel">
     <form id="message-form" method="POST" class="hidden" enctype="multipart/form-data">
       <h2>Enter a new message:</h2>
@@ -52,8 +58,19 @@ limitations under the License.
     </form>
     </div>
     <hr/>
+      <div class="padded rounded panel">
+      <form id="message-form" method="POST" class="hidden" enctype="multipart/form-data">
+        <h2>Enter a new message:</h2>
+        <br/>
+        <textarea name="text" id="message-input"></textarea>
+        <br/>
+        <input type="file" name="image" multiple>
+        <br/><br/>
+        <input type="submit" value="Submit">
+      </form>
+      </div>
+      <hr/>
 
-    <div id="message-container">Loading...</div>
-
+      <div id="message-container">Loading...</div>
   </body>
 </html>

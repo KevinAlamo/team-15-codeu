@@ -1,3 +1,4 @@
+    
 /*
  * Copyright 2019 Google Inc.
  *
@@ -112,10 +113,9 @@ public class MessageServlet extends HttpServlet {
     List<FileInfo> file = fileName.get("image");
     
     if ((file != null) && (!file.get(0).getFilename().isEmpty())) {
-        
       List<BlobKey> blobKeys = getBlobKeys(request, "image");
       List<String> imageBlobUrls = null;
-        
+
       List<byte[]> blobBytes;
       List<List<EntityAnnotation>> imageLabels = null;
       if (blobKeys != null) {
@@ -140,9 +140,9 @@ public class MessageServlet extends HttpServlet {
           }
           textWithImagesReplaced += "</p>";
         }
-        }
+      }
     }
-    
+
     Message message = new Message(user, textWithImagesReplaced);
     datastore.storeMessage(message);
     response.sendRedirect(request.getHeader("referer"));
