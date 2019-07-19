@@ -1,5 +1,21 @@
 /* set the size of the map */
 #map{
       height: 500px;
-      width: 500px;
+      width: 600px;
+      display: flex;
+	  justify-content: center;
     }
+h1{
+	text-align: center;
+}
+
+#content{ 
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+  text-align: center;
+}
+hr{
+	border-color: MediumAquamarine;
+	width: 100%;
+}

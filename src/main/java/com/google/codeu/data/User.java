@@ -7,8 +7,7 @@ public class User {
   private String gender;
   private int age;
 
-  public User(int id, String user) {
-    this.id = id;
+  public User(String user) {
     this.displayName = user;
   }
 

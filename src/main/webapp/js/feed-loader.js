@@ -22,7 +22,7 @@ function fetchMessages(){
             return response.json();
         }).then((messages) => {
             const messageContainer = document.getElementById('message-container');
-            if(messages.length == 0){
+            if(messages.length == 0) {
                 messageContainer.innerHTML = '<p>There are no posts yet.</p>';
             }
             else{

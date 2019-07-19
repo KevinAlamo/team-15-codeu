@@ -50,6 +50,9 @@ function loadNavigation() {              // eslint-disable-line no-unused-vars
             createListItem(createLink('/community.html', 'Site Community')));
 
           navigationElement.appendChild(
+            createListItem(createLink('/activityfeed.html', 'Activity Feed')));
+
+          navigationElement.appendChild(
             createListItem(createLink('/feed.html', 'Message Feed')));
 
           navigationElement.appendChild(

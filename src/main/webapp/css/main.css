@@ -20,15 +20,26 @@ body {
   font-family: Helvetica;
 }
 
-/* Remove bullet points from navigation bar. */
+/* Remove bullet points from navigation bar & make black. */
 nav ul {
   list-style-type: none;
-  padding-left: 0;
+  padding-left: 10px;
 }
 
-/* Keep navigation menu on one line. */
-nav li {
+/* Keep navigation menu on one line & make larger. */
+nav li {  
   display: inline-block;
-  margin-right: 10px
+  font-size: 14pt;
+  margin-right: 10px;
+  padding: 10px;
 }
+
+a:link {
+  color:black;
+}
+
+a:hover{
+	color: RoyalBlue;
+}
+
 
