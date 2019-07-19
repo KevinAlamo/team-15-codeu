@@ -27,7 +27,7 @@ public class UserDatastore {
    * connect submission to servlet somehow
    * display updated user info on user page
    * exception when user enters in non numberical data for age?
-   * @param user
+   * @param user is the new user
    */
   public void storeUser(User user) {
     Entity userEntity = new Entity("User", id);
