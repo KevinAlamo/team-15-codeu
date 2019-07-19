@@ -15,7 +15,7 @@ public class User {
   }
 
   /**
-   * Get User ID
+   * Get User ID.
    * @return ID
    */
   public int getId() {
@@ -23,7 +23,7 @@ public class User {
   }
 
   /**
-   * Get display name
+   * Get display name.
    * @return current display name
    */
   public String getDisplayName() {
@@ -31,7 +31,7 @@ public class User {
   }
 
   /**
-   * Get gender of user
+   * Get gender of user.
    * @return current gender of user
    */
   public String getGender() {
@@ -39,7 +39,7 @@ public class User {
   }
 
   /**
-   * Get age
+   * Get age.
    * @return current age of user
    */
   public int getAge() {
@@ -47,7 +47,7 @@ public class User {
   }
 
   /**
-   * Update display name
+   * Update display name.
    * @param name is the new name
    */
   public void updateDisplayName(String name) {
@@ -55,7 +55,7 @@ public class User {
   }
 
   /**
-   * Update age
+   * Update age.
    * @param x is the new age
    */
   public void updateAge(int x) {
@@ -63,7 +63,7 @@ public class User {
   }
 
   /**
-   * Update gender
+   * Update gender.
    * @param gender is the new gender
    */
   public void updateGender(String gender) {

@@ -12,6 +12,9 @@ public class UserDatastore {
   private DatastoreService userDatastore;
   private int id = 1;
 
+  /**
+   * Create new datastore service.
+   */
   public UserDatastore() {
     userDatastore = DatastoreServiceFactory.getDatastoreService();
   }
@@ -36,7 +39,7 @@ public class UserDatastore {
   }
 
   /**
-   * Get all of the users
+   * Get all of the users.
    * @return list of users of web app
    */
   public List<User> getUsers() {
@@ -48,7 +51,7 @@ public class UserDatastore {
   }
 
   /**
-   * Get a specific user's information
+   * Get a specific user's information.
    * @param results is the input that most easily allows users to be iterated through
    * @return list of users as User objects
    */
