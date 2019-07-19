@@ -35,6 +35,10 @@ public class UserDatastore {
     id += 1;
   }
 
+  /**
+   * Get all of the users
+   * @return list of users of web app
+   */
   public List<User> getUsers() {
     Query query = new Query("User");
     PreparedQuery results = userDatastore.prepare(query);
@@ -43,6 +47,11 @@ public class UserDatastore {
     return users;
   }
 
+  /**
+   * Get a specific user's information
+   * @param results is the input that most easily allows users to be iterated through
+   * @return list of users as User objects
+   */
   public List<User> getUserInformation(PreparedQuery results) {
     List<User> users = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
